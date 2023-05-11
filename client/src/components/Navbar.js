@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom'
 function Navbar() {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">NC Booking</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg">
+        <a className="navbar-brand" href="#">NC Booking</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <span class="nav-link"> <Link to="/register">Register</Link></span>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <span className="nav-link"> <Link to="/register">Register</Link></span>
             </li>
-            <li class="nav-item">
-              <span class="nav-link"><Link to="/login">Login</Link></span>
+            <li className="nav-item">
+              <span className="nav-link"><Link to="/login">Login</Link></span>
             </li>
           </ul>
         </div>

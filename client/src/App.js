@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import Home from './components/home';
 import Login from './components/login';
 import Register from './components/register';
@@ -11,6 +11,7 @@ function App() {
       
       <BrowserRouter>
       <Navbar />
+      
         <Routes>
         <Route path='/' element={<Home/>}></Route>
           <Route path='/register' element={<Register/>}></Route>

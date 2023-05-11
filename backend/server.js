@@ -1,10 +1,10 @@
 const express =require("express");
-
+var cors = require('cors')
 const app = express(); 
 const dbConfig=require('./db')
 
-const roomsRoute = require('./roomRoute')
-
+const roomsRoute = require('./routes/roomRoute')
+app.use(cors())
 app.use('/api/rooms', roomsRoute);  
 
 

@@ -4,40 +4,40 @@ function Register() {
     return (
         <div>
             <form>
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="First name" />
+                <div className="form-row">
+                    <div className="col">
+                        <input type="text" className="form-control" placeholder="First name" />
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Last name" />
+                    <div className="col">
+                        <input type="text" className="form-control" placeholder="Last name" />
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div className="form-row">
+                    <div className="form-group col-md-6">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email" />
+                        <input type="email" className="form-control" id="inputEmail4" placeholder="Email" />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div className="form-group col-md-6">
                         <label for="inputPassword4">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" />
+                        <input type="password" className="form-control" id="inputPassword4" placeholder="Password" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label for="inputNumber">Phone Number</label>
-                    <input type="text" class="form-control" id="inputNumber" placeholder="phone" />
+                    <input type="text" className="form-control" id="inputNumber" placeholder="phone" />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label for="inputAddress">Address </label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="address" />
+                    <input type="text" className="form-control" id="inputAddress" placeholder="address" />
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div className="form-row">
+                    <div className="form-group col-md-6">
                         <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" />
+                        <input type="text" className="form-control" id="inputCity" />
                     </div>
-                    <div class="form-group col-md-4">
+                    <div className="form-group col-md-4">
                         <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
+                        <select id="inputState" className="form-control">
                             <option selected>Choose...</option>
                             <option>...</option>
                         </select>
