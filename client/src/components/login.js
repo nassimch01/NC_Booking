@@ -1,45 +1,92 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
-
+import React, { useState } from "react";
+import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    return (
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-        <div className="vh-100 d-flex justify-content-center align-items-center">
-            <div className="container">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-12 col-md-8 col-lg-6">
-                        <div className="border border-3 border-primary"></div>
-                        <div className="card bg-white">
-                            <div className="card-body p-5">
-                                <form className="mb-3 mt-md-4">
-                                    <div className="mb-3">
-                                        <label for="email" className="form-label ">Email</label>
-                                        <input type="email" className="form-control" id="email" placeholder="name@example.com" />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label for="password" className="form-label ">Password</label>
-                                        <input type="password" className="form-control" id="password" placeholder="*****" />
-                                    </div>
-                                    <p className="small"><a className="text-primary" href="forget-password.html">Forgot password?</a></p>
-                                    <div className="d-grid">
-                                        <button className="btn btn-outline-dark" type="submit">Login</button>
-                                    </div>
-                                </form>
-                                <div>
-                                    <p className="mb-0  text-center">Don't have an account?<Link to="/register">Register</Link></p>
-                                </div>
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
+    console.log(email, password);
+    fetch("http://localhost:5000/users/login", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status == "usernotok") {
+            alert(data.msg);
+          }
+          if (data.status == "passnotok") {
+            alert(data.msg);
+          }
+        if (data.status == "200") {
+          alert("login successful");
+          window.localStorage.setItem("token", data.token);
+          window.localStorage.setItem("loggedIn", true);
+          navigate("/")
+        }
+      });
+  }
+  return (
+    <div>
+      <Card className="login-form">
+        <form onSubmit={handleSubmitForm}>
+          <h3> Login </h3>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="inputEmail4">Email</label>
+              <input
+                type="email"
+                className="form-control"
+                id="inputEmail4"
+                placeholder="Email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </div>
-        </div>
-
-
-
-    )
+            <div className="form-group">
+              <label htmlFor="inputPassword4">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="inputPassword4"
+                placeholder="Password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <p className="small">
+              <a className="text-primary" href="forget-password.html">
+                Forgot password?
+              </a>
+            </p>
+            <Button
+              type="submit"
+              className="register-button"
+              variant="secondary"
+            >
+              Submit
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </div>
+  );
 }
 
-export default Login
+export default Login;

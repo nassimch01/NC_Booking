@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Room from "./room";
 import { Col, Row, Container } from "react-bootstrap";
+import Banner from "./banner";
 
 function Home() {
   const [rooms, setrooms] = useState([]); //useState for variables
@@ -10,7 +11,7 @@ function Home() {
     //initialisation
     try {
       axios
-        .get("http://localhost:5000/api/rooms/getallrooms")
+        .get("http://localhost:5000/rooms/getallrooms")
         .then((response) => {
           //{data:...., config:..., headers: ....}
           console.log(response.data); //[] | rooms:[] | data: { rooms: []}.
@@ -23,6 +24,7 @@ function Home() {
 
   return (
     <div>
+      <Banner />
       <Container>
         <Row>
           {rooms.map((roomData) => (

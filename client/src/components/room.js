@@ -1,67 +1,62 @@
 import React, { useState } from "react";
-import { Modal, Button, Carousel ,Card} from 'react-bootstrap'
-function Room({ room }) { //room={name:...,id:...,description:...} | {name:...,id:...,description:...}
-    console.log(room)
-    const handleClose = () => { }
-    return (
-        <div>
-            {/* <div className="col-md-4">
-                <img src={room.imageurls[0]} className="smalling" />
-            </div>
-            <div className="col-md-7">
-                <h1>{room.name}</h1>
-                <b>
-                    {" "}
-                    <p>Max count : {room.maxcount}</p>
-                    <p>Phone number : {room.phonenumber}</p>
-                    <p>Type : {room.type}</p>
-                </b>
-                <div style={{ float: "right" }}>
-                    <button className="btn btn-primary"> View details</button>
-                </div>
-            </div> */}
-            <Card >
-                <Card.Img variant="top" src={room.imageurls[0]} />
-                <Card.Body>
-                    <Card.Title>{room.name}</Card.Title>
-                    <Card.Text>
-                    <p>Max count : {room.maxcount}</p>
-                    <p>Phone number : {room.phonenumber}</p>
-                    <p>Type : {room.type}</p>
-                    </Card.Text>
-                    <Button variant="primary">view details</Button>
-                </Card.Body>
-            </Card>
+import { Modal, Button, Carousel, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+function Room({ room }) {
+  //room={name:...,id:...,description:...} | {name:...,id:...,description:...}
 
-            {/* <Modal onHide={handleClose} size="lg">
-                <Modal.Header>
-                    <Modal.Title>{room.name}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Carousel prevLabel='' nextLabel=''>
-                        {room.imageurls.map(url => {
-                            return <Carousel.Item>
-                                <img
-                                    className="d-block w-100 bigimg"
-                                    src={url}
-                                    
-                                />
+  const [openModal, setopenModal] = useState(false);
 
-                            </Carousel.Item>
-                        })}
-                    </Carousel>
-                    <p>{room.description}</p>
+  const handleClose = () => {
+    setopenModal(false);
+  };
+  const handleViewDetails = () => {
+    setopenModal(true);
+  };
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
+  return (
+    <div>
+      <Card>
+        <Carousel interval={null}>
+          {room.imageurls.map((url) => (
+            <Carousel.Item>
+              <Card.Img variant="top" src={url} />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+        <Card.Body>
+          <Card.Title>{room.name}</Card.Title>
+          <Card.Text>
+            <div>Max count : {room.maxcount}</div>
+            <div>Phone number : {room.phonenummber}</div>
+            <div>Type : {room.type}</div>
+          </Card.Text>
+          <div style={{ float: "right" }}>
+            <Button variant="primary" onClick={handleViewDetails}>
+              view details
+            </Button>
+            <Link to={`/book/${room._id}`}>
+              <Button style={{ marginLeft: "8px" }}>Book now</Button>
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
 
-                </Modal.Footer>
-            </Modal> */}
-
-        </div >
-    );
+      {openModal && (
+        <Modal show={openModal} onHide={handleClose} size="lg">
+          <Modal.Header>
+            <Modal.Title>{room.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{room.description}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+    </div>
+  );
 }
 export default Room;
