@@ -3,15 +3,16 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import dayjs from "dayjs";
 
-function BookingDetails() {
+function BookingDetails({ startdate, enddate }) {
   // Get ID from URL
   const params = useParams(); //to get the id from url `/book/:id`
 
   const [room, setroom] = useState({});
 
+  console.log({startdate, enddate})
   useEffect(() => {
-    console.log(params.id);
     axios
       .get(`http://localhost:5000/rooms/getroombyid/${params.id}`)
       .then((res) => {
@@ -40,22 +41,20 @@ function BookingDetails() {
                 <p>
                   <h4>Booking Details</h4>
                   <div>Name: {}</div>
-                  <div>From date: {}</div>
-                  <div>To date: {} </div>
+                  <div>From date: {startdate.format('DD/MM/YYYY')}</div>
+                  <div>To date: {enddate.format('DD/MM/YYYY')} </div>
                   <div>Max count: {room.maxcount}</div>
                 </p>
                 <p>
                   <h4>Amount</h4>
-                  <div>Total days: {}</div>
+                  <div>Total days: {enddate.diff(startdate, 'day')}</div>
                   <div>Rent per day: {room.rentperday}</div>
                 </p>
                 <p>
                   <h4>Total amount: {} </h4>
                 </p>
               </Card.Text>
-              <Button variant="secondary" >
-              Pay Now
-            </Button>
+              <Button variant="secondary">Pay Now</Button>
             </Col>
           </Row>
         </Card.Body>
