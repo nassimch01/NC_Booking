@@ -3,6 +3,8 @@ import BookingDetails from "./components/bookingDetails";
 import Home from "./components/home";
 import Login from "./components/login";
 import Register from "./components/register";
+import Bookings from "./components/bookings";
+import Profile from "./components/profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "antd/dist/reset.css";
 import "./App.css";
@@ -33,6 +35,8 @@ function App() {
           ></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/myprofile" element={<Profile />}></Route>
+          <Route path="/mybookings" element={<Bookings />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

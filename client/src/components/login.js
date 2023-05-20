@@ -36,7 +36,6 @@ function Login() {
         if (data.status == "200") {
           alert("login successful");
           window.localStorage.setItem("token", data.token);
-          window.localStorage.setItem("loggedIn", true);
           navigate("/")
         }
       });
@@ -70,12 +69,7 @@ function Login() {
             </div>
           </div>
           <div className="form-group">
-            <p className="small">
-              <a className="text-primary" href="forget-password.html">
-                Forgot password?
-              </a>
-            </p>
-            <Button
+                      <Button
               type="submit"
               className="register-button"
               variant="secondary"
