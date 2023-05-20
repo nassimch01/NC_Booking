@@ -5,13 +5,12 @@ import { useParams } from "react-router-dom";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 
-function BookingDetails({ startdate, enddate }) {
+function BookingDetails({ user, startdate, enddate }) {
   // Get ID from URL
   const params = useParams(); //to get the id from url `/book/:id`
 
   const [room, setroom] = useState({});
 
-  console.log({startdate, enddate})
   useEffect(() => {
     axios
       .get(`http://localhost:5000/rooms/getroombyid/${params.id}`)
@@ -22,6 +21,34 @@ function BookingDetails({ startdate, enddate }) {
         console.log(err);
       });
   }, [params.id]);
+
+  const handleBookRoom = () => {
+    console.log({user})
+    const body = {
+      userid: user.id,
+      roomid: room.id,
+      startdate: startdate.toDate(),
+      enddate: enddate.toDate(),
+      totalamount: enddate.diff(startdate, "day") * room.rentperday,
+      totaldays: enddate.diff(startdate, "day"),
+      transactionid: "",
+    };
+    fetch("http://localhost:5000/bookings/addbooking", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data);
+        //stripe for payment
+      });
+  };
 
   return (
     <div>
@@ -40,21 +67,26 @@ function BookingDetails({ startdate, enddate }) {
               <Card.Text>
                 <p>
                   <h4>Booking Details</h4>
-                  <div>Name: {}</div>
-                  <div>From date: {startdate.format('DD/MM/YYYY')}</div>
-                  <div>To date: {enddate.format('DD/MM/YYYY')} </div>
+                  <div>Name: {`${user.firstname} ${user.lastname}`}</div>
+                  <div>From date: {startdate.format("DD/MM/YYYY")}</div>
+                  <div>To date: {enddate.format("DD/MM/YYYY")} </div>
                   <div>Max count: {room.maxcount}</div>
                 </p>
                 <p>
                   <h4>Amount</h4>
-                  <div>Total days: {enddate.diff(startdate, 'day')}</div>
+                  <div>Total days: {enddate.diff(startdate, "day")}</div>
                   <div>Rent per day: {room.rentperday}</div>
                 </p>
                 <p>
-                  <h4>Total amount: {} </h4>
+                  <h4>
+                    Total amount:{" "}
+                    {enddate.diff(startdate, "day") * room.rentperday}{" "}
+                  </h4>
                 </p>
               </Card.Text>
-              <Button variant="secondary">Pay Now</Button>
+              <Button variant="secondary" onClick={handleBookRoom}>
+                Pay Now
+              </Button>
             </Col>
           </Row>
         </Card.Body>

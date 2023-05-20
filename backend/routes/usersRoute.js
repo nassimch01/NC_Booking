@@ -3,10 +3,9 @@ const router = express.Router();
 const user = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-var bodyParser = require('body-parser') 
+var bodyParser = require("body-parser");
 
 router.post("/register", bodyParser.json(), (req, res) => {
-  console.log("req body", req.body)
   user.findOne({ email: req.body.email }).then((newuser) => {
     if (newuser) return res.status(400).send({ msg: "Email already exist" });
   });
@@ -45,7 +44,11 @@ router.post("/register", bodyParser.json(), (req, res) => {
 router.post("/login", bodyParser.json(), (req, res) => {
   let { email, password } = req.body;
   if (!email || !password)
-    return res.status(400).send({ msg: "Please enter all data | body : " + JSON.stringify(req.body) });
+    return res
+      .status(400)
+      .send({
+        msg: "Please enter all data | body : " + JSON.stringify(req.body),
+      });
 
   user.findOne({ email: email }).then((newuser) => {
     if (!newuser) return res.status(400).send({ msg: "User does not exist" });
@@ -58,13 +61,28 @@ router.post("/login", bodyParser.json(), (req, res) => {
         { expiresIn: 2596000 },
         (err, token) => {
           if (err) throw err;
-          return res.status(200).send({status:200, msg: "login successful", token: token});
+          return res
+            .status(200)
+            .send({
+              status: 200,
+              msg: "login successful",
+              token: token,
+              id: newuser.id,
+            });
         }
       );
     });
   });
 });
 
+router.get("/getuserbyid/:id", async (req, res) => {
+  try {
+    const userDetails = await user.findById(req.params.id);
+    return res.json(userDetails);
+  } catch (error) {
+    return res.status(404).json({ message: error });
+  } 
+});
 
 
 module.exports = router;

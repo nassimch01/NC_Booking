@@ -21,7 +21,6 @@ function Register() {
       phonenumber: phoneNumber,
       address: address,
     };
-    console.log(body);
     fetch("http://localhost:5000/users/register", {
       method: "POST",
       crossDomain: true,
@@ -34,9 +33,8 @@ function Register() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userRegister");
         alert(data.msg);
-        navigate("/login")
+        navigate("/login");
       });
   };
 

@@ -36,6 +36,7 @@ function Login() {
         if (data.status == "200") {
           alert("login successful");
           window.localStorage.setItem("token", data.token);
+          window.localStorage.setItem("userid", data.id);
           navigate("/")
         }
       });
