@@ -33,6 +33,13 @@ code {
   height: 300px;
   width: 350px;
 }
+.booking-img {
+  height: 100px;
+  width: 150px;
+}
+.booking-body {
+  text-align:start;
+}
 .room-text-right {
   text-align:end;
 }

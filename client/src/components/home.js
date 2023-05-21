@@ -8,27 +8,10 @@ import { InputNumber } from "antd";
 import dayjs from "dayjs";
 const { RangePicker } = DatePicker;
 
-function Home({ startdate, enddate, setstartdate, setenddate }) {
-  const [rooms, setrooms] = useState([]); //all rooms
-  const [filteredrooms, setfilteredrooms] = useState([]); //all rooms
-
+function Home({ rooms, filteredrooms, setfilteredrooms, startdate, enddate, setstartdate, setenddate }) {
   const [adults, setadults] = useState(1);
   const [children, setchildren] = useState(0);
   const [bookedrooms, setbookedrooms] = useState(1);
-
-  useEffect(() => {
-    //initialisation
-    try {
-      axios.get("http://localhost:5000/rooms/getallrooms").then((response) => {
-        //{data:...., config:..., headers: ....}
-        console.log(response.data); //[] | rooms:[] | data: { rooms: []}.
-        setrooms(response.data); // => rooms=[{id:...,name:...},{}...]
-        setfilteredrooms(response.data); // => rooms=[{id:...,name:...},{}...]
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
   const handleSearch = (event) => {
     const searchinput = event.target.value;
@@ -52,7 +35,7 @@ function Home({ startdate, enddate, setstartdate, setenddate }) {
       <Banner />
       <Container>
         <Row style={{ margin: "10px 0" }}>
-          <Col span={3}>
+          <Col xs={3}>
             <input
               className="form-control"
               id="place"
@@ -60,13 +43,13 @@ function Home({ startdate, enddate, setstartdate, setenddate }) {
               onChange={handleSearch}
             />
           </Col>
-          <Col span={4}>
+          <Col xs={4}>
             <RangePicker
               onChange={handleChangeDate}
               format="YYYY/MM/DD"
             />
           </Col>
-          <Col span={5}>
+          <Col xs={5}>
             <Dropdown>
               <Dropdown.Toggle>
                 <Button color="tertiary">{`${adults} adults. ${children} children. ${bookedrooms} rooms`}</Button>
@@ -104,7 +87,7 @@ function Home({ startdate, enddate, setstartdate, setenddate }) {
           </Col>
         </Row>
         <Row>
-          {filteredrooms.map((roomData) => (
+          {filteredrooms?.map((roomData) => (
             <Col xs={4}>
               <Room room={roomData} />{" "}
             </Col>

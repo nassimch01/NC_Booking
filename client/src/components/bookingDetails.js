@@ -23,7 +23,6 @@ function BookingDetails({ user, startdate, enddate }) {
   }, [params.id]);
 
   const handleBookRoom = () => {
-    console.log({user})
     const body = {
       userid: user.id,
       roomid: room.id,
@@ -33,6 +32,8 @@ function BookingDetails({ user, startdate, enddate }) {
       totaldays: enddate.diff(startdate, "day"),
       transactionid: "",
     };
+
+    if(enddate.diff(startdate, "day") <1) alert("Please select a correct date range")
     fetch("http://localhost:5000/bookings/addbooking", {
       method: "POST",
       crossDomain: true,
@@ -45,7 +46,7 @@ function BookingDetails({ user, startdate, enddate }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert(data);
+
         //stripe for payment
       });
   };

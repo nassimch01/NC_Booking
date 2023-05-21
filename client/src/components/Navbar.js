@@ -21,7 +21,7 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg">
         <Row justify="space-between">
-          <Col span={6}>
+          <Col xs={6}>
             <a className="navbar-brand" href="#">
               NC Booking
             </a>
@@ -37,7 +37,7 @@ function Navbar() {
               <span className="navbar-toggler-icon"></span>
             </button>
           </Col>
-          <Col span={6}>
+          <Col xs={6}>
             {loggedIn ? (
               <Dropdown >
                 <Dropdown.Toggle>

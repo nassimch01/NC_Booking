@@ -17,8 +17,23 @@ import dayjs from "dayjs";
 
 function App() {
   const [startdate, setstartdate] = useState(dayjs());
-  const [enddate, setenddate] = useState(dayjs());
+  const [enddate, setenddate] = useState(dayjs().add(1,"day"));
   const [user, setuser] = useState({});
+  const [rooms, setrooms] = useState([]); //all rooms
+  const [filteredrooms, setfilteredrooms] = useState([]); //filtered rooms by name
+
+  //get rooms
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:5000/rooms/getallrooms").then((response) => {
+        console.log(response.data); 
+        setrooms(response.data); 
+        setfilteredrooms(response.data); 
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   //get user by id
   const id = window.localStorage.getItem("userid");
@@ -45,6 +60,7 @@ function App() {
                 enddate={enddate}
                 setstartdate={setstartdate}
                 setenddate={setenddate}
+                rooms={rooms}
               />
             }
           ></Route>
@@ -55,7 +71,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/myprofile" element={<Profile user={user} />}></Route>
-          <Route path="/mybookings" element={<Bookings />}></Route>
+          <Route path="/mybookings" element={<Bookings user={user} rooms={rooms}/>}></Route>
         </Routes>
       </BrowserRouter>
 
