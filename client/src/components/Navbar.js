@@ -5,7 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Button, Dropdown } from "react-bootstrap";
 import { Row, Col } from "antd";
 
-function Navbar({ username, loggedIn, setLoggedIn }) {
+function Navbar({ username, loggedIn, setLoggedIn, isAdmin }) {
 
   const handleLogout = () => {
     window.localStorage.clear();
@@ -20,7 +20,6 @@ function Navbar({ username, loggedIn, setLoggedIn }) {
     }
   }
   window.addEventListener('scroll',changeBackground);
-
   return (
     <div className={navbar ? "navbar-fixed navbar-white" : "navbar-fixed navbar-transparent"}>
       <div>
@@ -36,9 +35,11 @@ function Navbar({ username, loggedIn, setLoggedIn }) {
               <UserOutlined /> {username}
             </Dropdown.Toggle>
             <Dropdown.Menu>
+             {!isAdmin && (
               <Dropdown.Item>
-                <Link to="/mybookings"> My bookings</Link>
-              </Dropdown.Item>
+               <Link to="/mybookings"> My bookings</Link>
+              </Dropdown.Item>  
+             )} 
               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

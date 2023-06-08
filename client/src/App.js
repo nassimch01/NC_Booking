@@ -11,6 +11,8 @@ import "antd/dist/reset.css";
 import "./App.css";
 import dayjs from "dayjs";
 import Navbar from "./components/navbar";
+import AdminHome from "./components/adminHome";
+import AdminRoom from "./components/adminRoom";
 
 function App() {
   const [startdate, setstartdate] = useState(dayjs());
@@ -62,12 +64,20 @@ function App() {
           username={user.firstname}
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
+          isAdmin={user?.isAdmin}
         />
         <Routes>
           <Route
             exact
             path="/"
             element={
+             user?.isAdmin ? 
+             <AdminHome
+                rooms={rooms}
+                filteredrooms={filteredrooms}
+                setfilteredrooms={setfilteredrooms}
+              />
+             :
               <Home
                 setstartdate={setstartdate}
                 setenddate={setenddate}

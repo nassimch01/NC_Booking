@@ -5,6 +5,9 @@ function Room({ room }) {
   //room={name:...,id:...,description:...} | {name:...,id:...,description:...}
 
   const [openModal, setopenModal] = useState(false);
+  const isLoggedIn = window && window.localStorage.getItem("token")
+
+  console.log({isLoggedIn})
 
   const handleClose = () => {
     setopenModal(false);
@@ -16,7 +19,7 @@ function Room({ room }) {
   return (
     <div>
       <Card>
-        <Carousel interval={null}>
+        <Carousel interval={null}>s
           {room.imageurls.map((url) => (
             <Carousel.Item>
               <Card.Img variant="top" src={url} />
@@ -33,7 +36,7 @@ function Room({ room }) {
             <Button variant="primary" onClick={handleViewDetails}>
               view details
             </Button>
-            <Link to={`/book/${room._id}`}>
+            <Link to={isLoggedIn ? `/book/${room._id}` : '/login'}>
               <Button style={{ marginLeft: "8px" }}>Book now</Button>
             </Link>
           </div>
