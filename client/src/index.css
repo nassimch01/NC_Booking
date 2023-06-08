@@ -17,6 +17,32 @@ code {
 .navbar-nav {
   margin-left: auto !important;
 }
+
+.navbar-fixed {
+  position: fixed;
+  z-index: 1000;
+  width: 100vw;
+  padding: 5px 20px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.navbar-transparent { 
+  background: transparent;
+}
+
+.navbar-white { 
+  background: white;
+}
+
+.action-buttons{
+  display: flex;
+  width:120px;
+  justify-content: space-between;
+  align-items:center;
+}
+
 .banner-background {
   background-image: url("https://images.pexels.com/photos/1591361/pexels-photo-1591361.jpeg?auto=compress&cs=tinysrgb&w=800");
   height: 100vh;
@@ -27,7 +53,7 @@ code {
   background-position: center;
   position: relative;
   padding: 12px 20px;
-  color:black
+  color: black;
 }
 .room-img {
   height: 300px;
@@ -38,10 +64,10 @@ code {
   width: 150px;
 }
 .booking-body {
-  text-align:start;
+  text-align: start;
 }
 .room-text-right {
-  text-align:end;
+  text-align: end;
 }
 .room-text-left {
   text-align: start;
@@ -55,31 +81,31 @@ code {
   color: #f5f5f5;
 }
 
-.login-form{
-  margin:auto;
+.login-form {
+  margin: auto;
   height: 400px;
   width: 500px;
-  margin-top:20px;
+  margin-top: 20px;
   padding: 10px;
-  text-align:start;
-  position:relative;
+  text-align: start;
+  position: relative;
 }
-.register-form{
-  margin:auto;
+.register-form {
+  margin: auto;
   height: 650px;
   width: 500px;
-  margin-top:20px;
+  margin-top: 20px;
   padding: 10px;
-  text-align:start;
-  position:relative;
+  text-align: start;
+  position: relative;
 }
-.form-group{
+.form-group {
   margin: 5px 0;
-  width:100%;
-  min-height:40px
+  width: 100%;
+  min-height: 40px;
 }
 
-.register-button{
+.register-button {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -94,4 +120,8 @@ code {
   margin-right: 0;
   margin-bottom: 8px;
   margin-left: 8px;
+}
+.top-space{
+  padding-top: 50px;
+  
 }

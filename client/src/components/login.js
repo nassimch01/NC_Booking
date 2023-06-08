@@ -3,14 +3,13 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({setLoggedIn}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
-    console.log(email, password);
     fetch("http://localhost:5000/users/login", {
       method: "POST",
       crossDomain: true,
@@ -37,12 +36,13 @@ function Login() {
           alert("login successful");
           window.localStorage.setItem("token", data.token);
           window.localStorage.setItem("userid", data.id);
+          setLoggedIn(true)
           navigate("/")
         }
       });
   }
   return (
-    <div>
+    <div className="top-space">
       <Card className="login-form">
         <form onSubmit={handleSubmitForm}>
           <h3> Login </h3>

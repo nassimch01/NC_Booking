@@ -33,13 +33,18 @@ function Register() {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert(data.msg);
-        navigate("/login");
+        if (data.token) {
+          alert(data.msg);
+          navigate("/login");
+        }
+        else {
+          alert(data.msg);
+        }
       });
   };
 
   return (
-    <div>
+    <div className="top-space">
       <Card className="register-form">
         <form onSubmit={handleSubmitForm}>
           <h3> Create an account </h3>

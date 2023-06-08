@@ -7,7 +7,8 @@ var bodyParser = require("body-parser");
 
 router.post("/register", bodyParser.json(), (req, res) => {
   user.findOne({ email: req.body.email }).then((newuser) => {
-    if (newuser) return res.status(400).send({ msg: "Email already exist" });
+    const data = { msg: "Email already exist" }
+    if (newuser) return res.status(400).send(data);
   });
   let newUser = new user(req.body);
 
@@ -23,7 +24,7 @@ router.post("/register", bodyParser.json(), (req, res) => {
           { expiresIn: 2596000 },
           (err, token) => {
             if (err) throw err;
-            res.json({
+            const data = {
               token,
               user: {
                 firstname: newuser.firstname,
@@ -33,7 +34,9 @@ router.post("/register", bodyParser.json(), (req, res) => {
                 email: newuser.email,
                 address: newuser.address,
               },
-            });
+              msg:"register successful"
+            }
+            res.json(data);
           }
         );
       });
@@ -81,7 +84,7 @@ router.get("/getuserbyid/:id", async (req, res) => {
     return res.json(userDetails);
   } catch (error) {
     return res.status(404).json({ message: error });
-  } 
+  }
 });
 
 

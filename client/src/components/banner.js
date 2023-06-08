@@ -1,14 +1,19 @@
 import React from "react";
-import Navbar from "./navbar";
 import { Button } from "react-bootstrap";
 
-function Banner() {
+
+
+function Banner({ scrollTo }) {
+
+
+
+
+
   return (
     <div className="banner-background">
-      <Navbar />
       <div className="banner-text">
         <h1> Make Your Vacation Comfortable</h1>
-        <Button variant="secondary" size="lg">
+        <Button onClick={scrollTo} variant="secondary" size="lg">
           Book Now
         </Button>
       </div>

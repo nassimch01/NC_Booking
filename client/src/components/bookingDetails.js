@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
+import StripeCheckout from 'react-stripe-checkout';
 
 function BookingDetails({ user, startdate, enddate }) {
   // Get ID from URL
@@ -22,7 +23,10 @@ function BookingDetails({ user, startdate, enddate }) {
       });
   }, [params.id]);
 
-  const handleBookRoom = () => {
+
+  const totalamount = (enddate.diff(startdate, "day") * room.rentperday)
+
+  async function onToken(token) {
     const body = {
       userid: user.id,
       roomid: room.id,
@@ -30,10 +34,11 @@ function BookingDetails({ user, startdate, enddate }) {
       enddate: enddate.toDate(),
       totalamount: enddate.diff(startdate, "day") * room.rentperday,
       totaldays: enddate.diff(startdate, "day"),
-      transactionid: "",
+      token: token,
     };
 
-    if(enddate.diff(startdate, "day") <1) alert("Please select a correct date range")
+
+    if (enddate.diff(startdate, "day") < 1) alert("Please select a correct date range")
     fetch("http://localhost:5000/bookings/addbooking", {
       method: "POST",
       crossDomain: true,
@@ -47,12 +52,12 @@ function BookingDetails({ user, startdate, enddate }) {
       .then((res) => res.json())
       .then((data) => {
 
-        //stripe for payment
-      });
-  };
 
+      });
+
+  }
   return (
-    <div>
+    <div className="top-space">
       <Card>
         <Card.Body>
           <Row>
@@ -71,7 +76,6 @@ function BookingDetails({ user, startdate, enddate }) {
                   <div>Name: {`${user.firstname} ${user.lastname}`}</div>
                   <div>From date: {startdate.format("DD/MM/YYYY")}</div>
                   <div>To date: {enddate.format("DD/MM/YYYY")} </div>
-                  <div>Max count: {room.maxcount}</div>
                 </p>
                 <p>
                   <h4>Amount</h4>
@@ -81,13 +85,20 @@ function BookingDetails({ user, startdate, enddate }) {
                 <p>
                   <h4>
                     Total amount:{" "}
-                    {enddate.diff(startdate, "day") * room.rentperday}{" "}
+                    {totalamount}
                   </h4>
                 </p>
               </Card.Text>
-              <Button variant="secondary" onClick={handleBookRoom}>
-                Pay Now
-              </Button>
+              <StripeCheckout
+                amount={totalamount * 100}
+                token={onToken}
+                currency="TND"
+                stripeKey="pk_test_51NBNYkHtJq5KW2QMbZfRjCI3kVnJSYbYfYpeaJWqes0mwQZERnGD4pVTRQS9wrysNZaN2SbQPQYHpVlFVX4ZT1ak00uEta8d7s"
+              >
+                <Button variant="secondary">
+                  Pay Now
+                </Button>
+              </StripeCheckout>
             </Col>
           </Row>
         </Card.Body>

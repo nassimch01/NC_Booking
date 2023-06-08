@@ -26,7 +26,6 @@ function Room({ room }) {
         <Card.Body>
           <Card.Title>{room.name}</Card.Title>
           <Card.Text>
-            <div>Max count : {room.maxcount}</div>
             <div>Phone number : {room.phonenummber}</div>
             <div>Type : {room.type}</div>
           </Card.Text>

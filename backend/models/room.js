@@ -6,7 +6,6 @@ const schema = new mongoose.Schema({
   imageurls: Array,
   rentperday: Number,
   type: String,
-  maxcount: Number,
   phonenummber: String,
   currentbookings: Array,
   description: String,

@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Room from "./room";
 import { Col, Row, Container, Dropdown, Button } from "react-bootstrap";
 import Banner from "./banner";
 import { DatePicker } from "antd";
 import { InputNumber } from "antd";
 import dayjs from "dayjs";
+import { useRef } from "react";
 const { RangePicker } = DatePicker;
 
-function Home({ rooms, filteredrooms, setfilteredrooms, startdate, enddate, setstartdate, setenddate }) {
+function Home({
+  rooms,
+  filteredrooms,
+  setfilteredrooms,
+  setstartdate,
+  setenddate,
+}) {
   const [adults, setadults] = useState(1);
   const [children, setchildren] = useState(0);
   const [bookedrooms, setbookedrooms] = useState(1);
+  const ref = useRef(null);
 
   const handleSearch = (event) => {
     const searchinput = event.target.value;
+    const data = rooms.filter((room) =>
+    room.name.toLowerCase().includes(searchinput.toLowerCase())
+  )
     setfilteredrooms(
-      rooms.filter((room) =>
-        room.name.toLowerCase().includes(searchinput.toLowerCase())
-      )
+      data
     );
   };
 
@@ -30,9 +38,12 @@ function Home({ rooms, filteredrooms, setfilteredrooms, startdate, enddate, sets
     }
   };
 
+  const scrollTo = () => {
+    ref.current.scrollIntoView()
+  }
   return (
     <div>
-      <Banner />
+      <Banner scrollTo={scrollTo} />
       <Container>
         <Row style={{ margin: "10px 0" }}>
           <Col xs={3}>
@@ -44,10 +55,7 @@ function Home({ rooms, filteredrooms, setfilteredrooms, startdate, enddate, sets
             />
           </Col>
           <Col xs={4}>
-            <RangePicker
-              onChange={handleChangeDate}
-              format="YYYY/MM/DD"
-            />
+            <RangePicker onChange={handleChangeDate} format="YYYY/MM/DD" />
           </Col>
           <Col xs={5}>
             <Dropdown>
@@ -86,7 +94,7 @@ function Home({ rooms, filteredrooms, setfilteredrooms, startdate, enddate, sets
             </Dropdown>
           </Col>
         </Row>
-        <Row>
+        <Row ref={ref}>
           {filteredrooms?.map((roomData) => (
             <Col xs={4}>
               <Room room={roomData} />{" "}

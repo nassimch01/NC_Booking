@@ -23,17 +23,17 @@ function Bookings({ user, rooms }) {
 
   const handleCancelBooking = (booking) => {
     axios
-      .delete(`http://localhost:5000/bookings/cancelbooking/${booking.id}`)
-      .then(() => {
+      .post(`http://localhost:5000/bookings/cancelbooking`, {id: booking._id})
+      .then((data) => {
         const updatedbookings = bookings.filter(
-          (item) => item.id != booking.id
+          (item) => item._id != booking._id
         );
         setbookings(updatedbookings);
       });
   };
 
   return (
-    <div>
+    <div className="top-space">
       {bookings.map((booking) => {
         const room = rooms.find((item) => item.id == booking.roomid);
         return (
